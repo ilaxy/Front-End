@@ -1,17 +1,12 @@
 
 <?php
   
-    ini_set('display_errors',1);
-    ini_set('display_startup_errors',1);
-    ini_set("error_log","/tmp/error.log");
-    error_reporting(E_ALL);	
-
     session_start();
-   
+    /*
     if (!$_SESSION["logged"]){
         header("Location: login.html");
     }
-    
+    */
     
     require_once('path.inc');
     require_once('get_host_info.inc');
@@ -68,14 +63,14 @@ function AddToWishList() {
     
     </div>
   </div>
-
+/*
 	<h1><?php echo $_SESSION["username"]; ?></h1>
         <?php for($i = 0; $i < count($data["Books"]); $i++){ ?>
             <b>Book Name: </b> <?php echo $data["suggestions"][$i]["book_title"]; ?>
             <br>    
         <?php } ?>
 		
-		
+*/		
 	  <h2>Reviews <?php echo $_SESSION["username"]; ?>:</h2>
     <?php for($i = 0; $i < count($data["reviews"]); $i++){ ?>
         <b>Book Name: </b> <?php echo $data["reviews"][$i]["book_title"]; ?>
@@ -99,6 +94,6 @@ function AddToWishList() {
       <input type="checkbox">
       <span class="checkmark"></span>
     </label>
-      
+        
 </body>
 </html>

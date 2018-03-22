@@ -3,7 +3,6 @@
 
 	ini_set('display_errors',1);
 	ini_set('display_startup_errors',1);
-	ini_set("error_log","/tmp/error.log");
 	error_reporting(E_ALL);	
 
 	require_once('path.inc');
@@ -20,8 +19,7 @@
 	$request['email'] = $_POST["email"];
 	$request['password'] = $_POST["password"];
 
-	$returnResponse = register($request);
-
+	$returnResponse = dbClient($request);
 
 	if ($returnResponse == "True")
 	{

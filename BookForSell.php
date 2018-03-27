@@ -227,7 +227,7 @@ function closeNav() {
     <div class="container">
       <div class="row">
         <div class="intro-text"> <center>
-           <a href="#BookForSell" class="btn btn-default btn-lg page-scroll" id="defaultOpen">Start Selling</a> </center>
+           <a href="#BookForSell" class="btn btn-default btn-lg page-scroll" >Start Selling</a> </center>
       </div>
     </div>
   </div>

@@ -26,11 +26,17 @@
 		header("Location: login.html");
 	}
 
-	else
+	else 
 	{
+
+		header('Refresh:5; url=register.html');
 		echo "Registration failed ! Please try again!";
-		header("Location: register.html");
-		 
+		/*
+		echo "<script>";
+		echo " alert('Registration failed ! Please try again!');
+			window.location.href='".site_url('register.html')." ';
+		</script>";	*/
+	 
 	}
 
 

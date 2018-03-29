@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 	require_once('path.inc');
 	require_once('get_host_info.inc');
 	require_once('rabbitMQLib.inc');  
-	require_once('testRabbitMQClient.php');
+	require_once('RabbitMQClient.php');
 
 	$request = array();
 
@@ -27,7 +27,7 @@ error_reporting(E_ALL);
 		$_SESSION["username"] = $username;
 		$_SESSION["logged"] = true;
 
-		header("Location: readBuster.html");
+		header("Location: readBuster.php");
 	}
 
 	else

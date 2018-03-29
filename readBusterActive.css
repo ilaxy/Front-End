@@ -13,7 +13,7 @@ width: 100%;
 }
 p {
     margin-top: -15px;
-    margin-left: 33px;
+    margin-left: 1010px;
     color: orange;
 }
 
@@ -62,7 +62,7 @@ form.example::after {
 
 /* Set a style for all buttons */
 button[type=button]{
-    float: right;
+    float: left;
     background-color: orange;
     color: white;
     padding: 14px 20px;

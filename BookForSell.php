@@ -192,7 +192,7 @@ button:hover {
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <b>
-  <a class="btn btn-default btn-lg page-scroll" href="readBuster.html">Home</a> 
+  <a class="btn btn-default btn-lg page-scroll" href="readBuster.php">Home</a> 
   <a class="btn btn-default btn-lg page-scroll" href="profile.php">Profile</a> 
   <a class="btn btn-default btn-lg page-scroll" href="logout.php">Log Out</a> 
   
@@ -200,11 +200,11 @@ button:hover {
 </div>
 
 <div id="main">
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; 
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
   <form class="example" action="BuyBook.php" style="margin:auto;max-width:700px">
         <input type="text" placeholder="Search book for Sale" name="search2">
         <button type="submit"><i class="fa fa-search"></i></button>
-  </form></span>
+  </form>
 </div>
 
 <script>

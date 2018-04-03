@@ -1,26 +1,35 @@
 
-<?php
-  
-    session_start();
-    
-    if (!$_SESSION["logged"]){
-        header("Location: login.html");
-    }
-    
-    
-    require_once('path.inc');
-    require_once('get_host_info.inc');
-    require_once('rabbitMQLib.inc');
-    require_once('RabbitMQClient.php');
+<?php 
+
+	error_reporting(E_ALL);	
+	ini_set('display_errors',1);
+	ini_set('log_errors',1);
 	
-    $client = new rabbitMQClient("RabbitMQ.ini","dbServer");
+	session_start();
+
+	if (isset($_SESSION['logged']) && $_SESSION['logged'] == true){
+		echo $_SESSION['username']; 
+	}
 	
-    $request = array();
-    $request['type'] = "UserProfile";
-    $request['username'] = $_SESSION["username"];
-    
-    $response = dbClient($request);  
-?> 
+	else{
+		header("Location: login.html");
+	}
+    	
+	
+	require_once('path.inc');
+	require_once('get_host_info.inc');
+	require_once('rabbitMQLib.inc');
+	require_once('RabbitMQClient.php');
+	   
+	$request = array();	    
+	$request['type'] = "booksearch";
+	$request['username'] = $username;
+	$request['bookname'] = $bookname;
+
+	$response = dbClient($request);
+	   
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -30,6 +39,18 @@
 	<link href='https://fonts.googleapis.com/css?family=Barlow Condensed' rel='stylesheet'>  
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<script type="text/javascript" >
+	var bookname ="<?php echo $bookname;?>";
+	var resource_url = 'Booksearch.php?bookname='+ bookname;
+	$.get(resource_url, function(data) {
+		 
+		 /* data will hold the php array as a javascript object */
+		  var template = Handlebars.compile(document.getElementById('doc-template').innerHTML);
+		  document.getElementById('content-placeholder').innerHTML = template(data);
+	  });
+
+	</script>
 
     	<style>
 		html, body {  
@@ -184,10 +205,10 @@
 	  <p>readBuster</p> <br><br><br><br><br>
 
 	  <h1><?php echo $_SESSION["username"]; ?></h1>
-	       <?php for($i = 0; $i < count($data["Books"]); $i++){ ?>
-		    <b>Book Name: </b> <?php echo $data["suggestions"][$i]["book_title"]; ?>
-		    <b>Author: </b> <?php echo $data["suggestions"][$i]["author"]; ?>
-		    <b>Review: </b> <?php echo  $data["reviews"][$i]["review_text"]; ?><br>
+	       <?php for($i = 0; $i < count($response["Books"]); $i++){ ?>
+		    <b>Book Name: </b> <?php echo $response[""][$i]["book_title"]; ?>
+		    <b>Author: </b> <?php echo $response[""][$i]["author"]; ?>
+		    <b>Review: </b> <?php echo  $response[""][$i]["description"]; ?><br>
 
 		    <input id=addReview type=text name="addReview"><br>
 	  	    <button type="submit">Add comment</i></button> <br>

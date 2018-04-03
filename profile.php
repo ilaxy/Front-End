@@ -1,31 +1,28 @@
 <?php
 
-
-    session_start();
-   
-    if (!$_SESSION["logged"]){
-        header("Location: login.html");
-    }
-    
-    
-    require_once('path.inc');
-    require_once('get_host_info.inc');
-    require_once('rabbitMQLib.inc');
-    require_once('RabbitMQClient.php');
 	
-    $client = new rabbitMQClient("RabbitMQ.ini","dbServer");
-	
-    $request = array();
-    $request['type'] = "UserProfile";
-    $request['username'] = $_SESSION["username"];
-    $request['firstname'] = $_SESSION["firstname"];
-    $request['lastname'] = $_SESSION["lastname"];
-    $request['email'] = $_SESSION["email"];
-    $request['wishlist'] = $_SESSION["wishlist"];
-    
-    $response = $client->send_request($request);  
+	error_reporting(E_ALL);	
+	ini_set('display_errors',1);
+	ini_set('log_errors',1);
 
-    return $response;
+	session_start();
+
+    	require_once('path.inc');
+    	require_once('get_host_info.inc');
+   	require_once('rabbitMQLib.inc');
+    	require_once('RabbitMQClient.php');
+
+    	$request = array();
+    	$request['type'] = "UserProfile";
+    	$request['username'] = $_SESSION["username"];
+    	$request['firstname'] = $_SESSION["firstname"];
+    	$request['lastname'] = $_SESSION["lastname"];
+    	$request['email'] = $_SESSION["email"];
+    	$request['wishlist'] = $_SESSION["wishlist"];
+    
+   	$response = dbClient($request);   
+
+    
 ?>
 
 <html>
@@ -92,18 +89,16 @@
    <button type="button" style= "align=right" onclick="location.href='logout.php'">Log Out</button> 
    <h1> Personal User Library </h1>
    <h2>My Profile</h2>
-    <p><?php echo "Username  :". $_SESSION["username"]; ?></p>
+    	<p><?php echo "Username  :". $_SESSION["username"]; ?></p>
 	<p><?php echo "First Name  :". $_SESSION["firstname"]; ?></p>
 	<p><?php echo "Last Name  :". $_SESSION["lastname"]; ?></p>
-       <p> <?php echo "Email address  :". $_SESSION["email"]; ?></p>
-		
-	
+       	<p> <?php echo "Email address  :". $_SESSION["email"]; ?></p>
+
+    <!--retrive wishlist from database if wishlist has been added for user -->			
     <h2>My Wishlist</h2>
-    <?php for($i = 0; $i < count($data["wishlist"]); $i++){ ?>
-    <b>Book Name: <?php echo $data["reviews"][$i]["book_title"]; ?></b>
-    //retrive from database if wishlist has been added for user
-    <br>
-    <?php } ?>
+	    <?php for($i = 0; $i < count($response["wishlist"]); $i++){ ?>
+	    <b>Book Name: <?php echo $response["wishlist"][$i]["bookname"]; ?></b><br>
+	    <?php } ?>
        
   </body> 
 </html>

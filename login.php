@@ -1,15 +1,15 @@
 <?php
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(E_ALL);	
 
-
-	session_start();
+	error_reporting(E_ALL);	
+	ini_set('display_errors',1);
+	ini_set('log_errors',1);
+	
 
 	require_once('path.inc');
 	require_once('get_host_info.inc');
 	require_once('rabbitMQLib.inc');  
 	require_once('RabbitMQClient.php');
+
 
 	$request = array();
 
@@ -17,16 +17,15 @@ error_reporting(E_ALL);
 	$request['username'] = $_POST['username'];
 	$request['password'] = $_POST['password'];
 
-	//echo $request['username'] + " " + $request['password'];
 
 	$returnResponse = dbClient($request);
 
 	if ($returnResponse == "True")
 	{
-		echo "hello";
-		$_SESSION["username"] = $username;
+		session_start();
 		$_SESSION["logged"] = true;
-
+		$_SESSION["username"] = $username;
+		
 		header("Location: readBuster.php");
 	}
 
